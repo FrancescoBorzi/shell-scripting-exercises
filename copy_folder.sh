@@ -4,6 +4,12 @@
 
 if [ $# -eq 2 ] 
 then
+	if [ ! -d $1 ]
+	then
+		echo Directory $1 doesn\'t exists
+		exit 0
+	fi
+	
 	files=`cd $1; find .`
 
 	if [ -d $2 ]

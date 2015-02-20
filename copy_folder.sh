@@ -12,19 +12,22 @@ then
 	
 	files=`cd $1; find .`
 
-	if [ -d $2 ]
+	if [ ! -d $2 ]
 	then
-		rm -r $2
+		mkdir $2
 	fi
-
-	mkdir $2
 
 	for file in $files
 	do
+		echo $file
 		if [ "$file" != "." ]
 		then
 			if [ -d $1/$file ]
 			then
+				if [ -e $2/$file ]
+				then
+					rm -r $2/$file
+				fi
 				mkdir $2/$file
 			else
 				cp $1/$file $2/$file

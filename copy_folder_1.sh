@@ -21,22 +21,12 @@ then
 		exit 0
 	fi
 	
-	if [  -d $2  ]
+	if [ ! -d $2  ]
 	then
-		n_files=`find $2 | wc -l`
-
-		if [ $w == "on" ] || [ $n_files -eq 1 ]
-		then
-			rm -r $2
-		else
-			echo Directory $2 is not empty. Use -w to delete it and replace with $1
-			exit 2
-		fi
+		mkdir $2
 	fi
 
 	files=`cd $1; find .`
-
-	mkdir $2
 
 	for file in $files
 	do
@@ -44,7 +34,20 @@ then
 		then
 			if [ -d $1/$file ]
 			then
-				mkdir $2/$file
+				if [  -d $2/$file  ]
+				then
+					n_files=`find $2/$file | wc -l`
+
+					if [ $w == "on" ] || [ $n_files -eq 1 ]
+					then
+						rm -r $2/$file
+						mkdir $2/$file
+					else
+						echo Directory $2/$file is not empty. Use -w to delete it and replace with $1
+					fi
+				else
+					mkdir $2/$file
+				fi
 			else
 				cp $1/$file $2/$file
 			fi

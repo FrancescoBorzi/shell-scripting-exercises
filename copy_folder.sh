@@ -19,7 +19,6 @@ then
 
 	for file in $files
 	do
-		echo $file
 		if [ "$file" != "." ]
 		then
 			if [ -d $1/$file ]
@@ -40,3 +39,4 @@ else
 	echo Syntax: $0 source destination
 	exit 1
 fi
+

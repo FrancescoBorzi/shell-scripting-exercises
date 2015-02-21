@@ -5,7 +5,7 @@
 # Enhancement 1: 
 # check if the dest dir is not empty in this case do not perform the copy unless option "-w" is specified			
 
-if [ "$1" == "-w" ]
+if [ "$1" = "-w" ]
 then
 	w="on"
 	shift
@@ -38,7 +38,7 @@ then
 				then
 					n_files=`find $2/$file | wc -l`
 
-					if [ $w == "on" ] || [ $n_files -eq 1 ]
+					if [ $w = "on" ] || [ $n_files -eq 1 ]
 					then
 						rm -r $2/$file
 						mkdir $2/$file
